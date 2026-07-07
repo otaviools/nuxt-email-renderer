@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { error } from "#build/ui";
+
 const emailUsuario = ref("");
 const carregando = ref(false);
 const mensagem = ref("");
+const enviado = ref(false);
+const erro = ref(false);
 const userName = ref("");
 
 async function enviarEmail() {
@@ -15,8 +19,14 @@ async function enviarEmail() {
       body: { emailUsuario: emailUsuario.value, userName: userName.value },
     });
     mensagem.value = "Email enviado com sucesso!";
+    emailUsuario.value = "";
+    userName.value = "";
+    enviado.value = true;
   } catch (error) {
+    erro.value = true;
     mensagem.value = "Erro ao enviar o email. Tente novamente.";
+    emailUsuario.value = "";
+    userName.value = "";
   } finally {
     carregando.value = false;
   }
@@ -37,7 +47,6 @@ async function enviarEmail() {
         size="lg"
         class="w-full max-w-lg mb-2"
         placeholder="Email"
-        :ui="{ base: 'peer' }"
       >
       </UInput>
       <UButton
@@ -51,7 +60,11 @@ async function enviarEmail() {
         >Enviar</UButton
       >
     </div>
-    <p v-if="mensagem" class="px-2 text-sm text-primary">
+    <p
+      v-if="mensagem"
+      :class="enviado ? 'text-green-500' : 'text-red-500'"
+      class="px-2 text-sm"
+    >
       {{ mensagem }}
     </p>
   </section>
