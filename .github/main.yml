@@ -1,10 +1,20 @@
-steps:
-  - name: Baixar o código
-    uses: actions/checkout@v4
+name: Workflow pnpm
 
-  - name: Criar arquivo .env dinamicamente
-    run: |
-      echo "MINHA_SENHA_API=${{ secrets.SENHA_API_EMAIL }}" > .env
+on: [push]
 
-  - name: Rodar meu projeto
-    run: pnpm dev
+jobs:
+  iniciar-projeto:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Criar arquivo .env dinamicamente
+        run: |
+          echo "EMAIL_PASSWORD=${{ secrets.SENHA_API_EMAIL }}" > .env
+
+      - name: Verificar se o arquivo foi criado
+        run: |
+          echo "Lendo o conteúdo do arquivo .env:"
+          cat .env
