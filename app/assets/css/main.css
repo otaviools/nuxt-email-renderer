@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme {
+  --font-sans: "Inter", "Fira Code", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-neutral-900 text-white;
+  }
+}
