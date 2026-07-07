@@ -1,0 +1,21 @@
+name: Testando meu Secret
+
+on: [push] # O código roda quando você faz um push
+
+jobs:
+  meu-trabalho:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      # PASSO 8: AQUI É ONDE A MÁGICA ACONTECE
+      - name: Executar script com a senha
+        env:
+          SENHA_NO_SERVIDOR: ${{ secrets.SENHA_API_EMAIL }}
+        run: |
+          echo "Conectando ao sistema..."
+          # Aqui o seu sistema já tem acesso à variável $SENHA_NO_SERVIDOR
+          # Exemplo no Node.js: process.env.SENHA_NO_SERVIDOR
+          # Exemplo no Python: os.getenv("SENHA_NO_SERVIDOR")
