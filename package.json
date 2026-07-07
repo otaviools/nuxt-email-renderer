@@ -22,5 +22,10 @@
     "@nuxt/fonts": "^0.14.0",
     "@types/nodemailer": "^8.0.1",
     "@vue-email/nuxt": "^0.8.19"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "vue-demi"
+    ]
   }
 }
