@@ -10,7 +10,24 @@ jobs:
       - name: Baixar código
         uses: actions/checkout@v4
 
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
       - name: Criar arquivo .env
         run: |
           echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
           echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
+
+      - name: Instalar dependências
+        run: pnpm install
+
+      - name: Testar conexão do Nodemailer
+        run: npx tsx scripts/test-email.ts
