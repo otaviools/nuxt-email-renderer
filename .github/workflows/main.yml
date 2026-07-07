@@ -29,5 +29,14 @@ jobs:
       - name: Instalar dependências
         run: pnpm install
 
-      - name: Testar conexão do Nodemailer
-        run: npx tsx scripts/test-email.ts
+      - name: Subir servidor em background
+        run: pnpm dev &
+
+      - name: Esperar servidor ficar pronto
+        run: npx wait-on http://localhost:3000
+
+      - name: Testar rota de envio de email
+        run: |
+          curl -f -X POST http://localhost:3000/api/enviar-email \
+            -H "Content-Type: application/json" \
+            -d '{"emailUsuario": "gamestavinho4@gmail.com", "userName": "Otávio"}'
