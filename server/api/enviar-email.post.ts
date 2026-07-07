@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
     const info = await transporter.sendMail({
       from: config.emailUser,
       to: emailUsuario,
-      subject: "Bem-vindo ao Nuxt Email Renderer",
+      subject: "Desenvolvedor Otávio Santos ! 🎉",
       html,
     });
 
