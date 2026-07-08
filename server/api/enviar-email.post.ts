@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const { emailUsuario, userName } = body;
+  const { emailUsuario, userName, text } = body;
 
   if (!emailUsuario) {
     throw createError({
@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
   try {
     const result = await renderEmailComponent("WelcomeEmail", {
       userName: userName || "Usuário",
+      text: text || "Mensagem cliente",
     });
 
     const html = typeof result === "string" ? result : result.html;
@@ -34,7 +35,7 @@ export default defineEventHandler(async (event) => {
     const info = await transporter.sendMail({
       from: config.emailUser,
       to: emailUsuario,
-      subject: "Desenvolvedor Otávio Santos ! 🎉",
+      subject: "Otávio Santos - FullStack Developer",
       html,
     });
 

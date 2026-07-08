@@ -2,11 +2,12 @@
 import { error } from "#build/ui";
 
 const emailUsuario = ref("");
+const userName = ref("");
+const text = ref("");
 const carregando = ref(false);
 const mensagem = ref("");
 const enviado = ref(false);
 const erro = ref(false);
-const userName = ref("");
 
 async function enviarEmail() {
   if (!emailUsuario.value) return;
@@ -16,17 +17,23 @@ async function enviarEmail() {
   try {
     await $fetch("/api/enviar-email", {
       method: "POST",
-      body: { emailUsuario: emailUsuario.value, userName: userName.value },
+      body: {
+        emailUsuario: emailUsuario.value,
+        userName: userName.value,
+        text: text.value,
+      },
     });
     mensagem.value = "Email enviado com sucesso!";
     emailUsuario.value = "";
     userName.value = "";
+    text.value = "";
     enviado.value = true;
   } catch (error) {
     erro.value = true;
     mensagem.value = "Erro ao enviar o email. Tente novamente.";
     emailUsuario.value = "";
     userName.value = "";
+    text.value = "";
   } finally {
     carregando.value = false;
   }
@@ -49,6 +56,11 @@ async function enviarEmail() {
         placeholder="Email"
       >
       </UInput>
+      <UTextarea
+        class="w-full max-w-lg mb-2"
+        v-model="text"
+        placeholder="Mensagem"
+      />
       <UButton
         class="w-full mb-6"
         size="lg"
