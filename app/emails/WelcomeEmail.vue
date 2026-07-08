@@ -2,10 +2,11 @@
 interface Props {
   userName: string;
   confirmationUrl: string;
+  text: string;
 }
 
 withDefaults(defineProps<Props>(), {
-  confirmationUrl: "https://devotaviosantos.vercel.app",
+  confirmationUrl: "https://devotaviosantos.vercel.app/#portfolio",
 });
 </script>
 
@@ -20,6 +21,7 @@ withDefaults(defineProps<Props>(), {
         format: 'woff2',
       }"
     />
+
     <EStyle>
       body { margin: 0; padding: 0; font-family: 'Inter', Arial, sans-serif; }
       .header { width: 100%; padding: 16px; padding-bottom: 40px; color:
@@ -32,6 +34,7 @@ withDefaults(defineProps<Props>(), {
       font-size: 12px; color: #999999; line-height: 1.5; } .divider { border:
       none; border-top: 1px solid #eeeeee; margin: 24px 0; }
     </EStyle>
+
     <EBody>
       <EContainer
         style="
@@ -66,10 +69,21 @@ withDefaults(defineProps<Props>(), {
               font-weight: 600;
               text-decoration: none;
               display: inline-block;
+              margin-bottom: 20px;
             "
           >
-            Acessar plataforma
+            Acessar portfólio
           </EButton>
+
+          <EHr class="divider" />
+
+          <EText style="margin-bottom: 10px" class="subtitle">
+            <strong>Sua mensagem:</strong>
+          </EText>
+
+          <EText style="font-size: 14px; color: #666666; margin-bottom: 20px">
+            {{ text }}
+          </EText>
 
           <EHr class="divider" />
 
